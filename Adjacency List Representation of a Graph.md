@@ -37,58 +37,80 @@ To write a Python program to demonstrate the **adjacency list representation** o
 ## PYTHON PROGRAM
 
 ```
-Name : Divyashree G
-Reg No : 212223060062
-Python3 program to generate a graph
-# for a given fixed degrees
+"""
+A Python program to demonstrate the adjacency
+list representation of the graph
+"""
 
-# A function to print the adjacency matrix.
-def printMat(degseq, n):
+# A class to represent the adjacency list of the node
+
+
+class AdjNode:
+	def __init__(self, data):
+		self.vertex = data
+		self.next = None
+
+
+# A class to represent a graph. A graph
+# is the list of the adjacency lists.
+# Size of the array will be the no. of the
+# vertices "V"
+class Graph:
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = [None] * self.V
+
+	# Function to add an edge in an undirected graph
+	def add_edge(self, src, dest):
+		# Adding the node to the source node
+		node = AdjNode(dest)
+		node.next = self.graph[src]
+		self.graph[src] = node
+
+		# Adding the source node to the destination as
+		# it is the undirected graph
+		node = AdjNode(src)
+		node.next = self.graph[dest]
+		self.graph[dest] = node
+
 	
-	# n is number of vertices
-	mat=[[0]*n for i in range (n)]
-	for i in range (n):
-	    for j in range(i+1,n):
-	        if(degseq[i]>0 and degseq[j]>0):
-	            degseq[i]-=1
-	            degseq[j]-=1
-	            mat[i][j]=1
-	            mat[j][i]=1
-	#------CODE HERE-----
-	
+	def print_graph(self):
+	    for i in range(self.V):
+	        print('Adjacency list of vertex {}\n'.format(i,i),end="")
+	        print("",i,"",end="")
+	        
+	        temp=self.graph[i]
+	        while temp:
+	            print('-> {}'.format(temp.vertex),end=" ")
+	            temp=temp.next
+	        print('\n')
+		
+		
+		#Write Code here
 
-			# For each pair of vertex decrement
-			# the degree of both vertex.
-				
-	#------CODE HERE-----
-	
-	# Print the result in specified form
-	print("      ", end ="")
-	for i in range(n):
-		print(" ", "(", i, ")", end ="")
-	print()
-	print()
-	for i in range(n):
-		print("  ", "(", i, ")", end = " ")
-		for j in range(n):
-			print("  ", mat[i][j], end = " ")
-		print()
 
-# Driver Code
-degseq=[]
-for i in range(0, 5):
-    ele = int(input())
-  
-    degseq.append(ele)
-#degseq =[v0,v1,v2,v3,v4]
 
-n = len(degseq)
-printMat(degseq, n)
+
+
+# Driver program to the above graph class
+if __name__ == "__main__":
+	V = 5
+	graph = Graph(V)
+	graph.add_edge(0, 1)
+	graph.add_edge(0, 4)
+	graph.add_edge(1, 2)
+	graph.add_edge(1, 3)
+	graph.add_edge(1, 4)
+	graph.add_edge(2, 3)
+	graph.add_edge(3, 4)
+
+	graph.print_graph()
 
 ```
 
 ## OUTPUT
-<img width="1053" height="316" alt="image" src="https://github.com/user-attachments/assets/7d673838-3ed2-4381-9ed4-438c4649110e" />
+<img width="791" height="459" alt="image" src="https://github.com/user-attachments/assets/08482a04-a492-4304-adaa-bebc7653068d" />
+
 
 ## RESULT
 Thus,a Python program to demonstrate the **adjacency list representation** of the given graph is successfully executed.
